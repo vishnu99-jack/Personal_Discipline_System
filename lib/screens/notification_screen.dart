@@ -4,7 +4,7 @@ import 'dart:async';
 import 'package:audioplayers/audioplayers.dart';
 import 'package:hive/hive.dart';
 import 'dart:typed_data';
-import 'dart:html' as html;
+import '../services/audio_helper.dart';
 
 class NotificationScreen extends StatefulWidget {
   const NotificationScreen({super.key});
@@ -48,17 +48,13 @@ class _NotificationScreenState extends State<NotificationScreen> {
   Future<void> _playStartSound() async {
     if (startSoundBytes == null) return;
 
-    final blob = html.Blob([startSoundBytes!]);
-    final url = html.Url.createObjectUrlFromBlob(blob);
-    await _audioPlayer.play(UrlSource(url));
+    await playSound(startSoundBytes!, _audioPlayer);
   }
 
   Future<void> _playSuccessSound() async {
     if (successSoundBytes == null) return;
 
-    final blob = html.Blob([successSoundBytes!]);
-    final url = html.Url.createObjectUrlFromBlob(blob);
-    await _audioPlayer.play(UrlSource(url));
+    await playSound(successSoundBytes!, _audioPlayer);
   }
 
   // =========================

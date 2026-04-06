@@ -1,7 +1,7 @@
 import 'dart:async';
 import 'package:hive/hive.dart';
 import 'dart:typed_data';
-import 'dart:html' as html;
+import 'audio_helper.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'web_notification_controller.dart';
 
@@ -71,10 +71,7 @@ class NotificationEngine {
       final Uint8List sound =
           Uint8List.fromList(List<int>.from(bytes));
 
-      final blob = html.Blob([sound]);
-      final url = html.Url.createObjectUrlFromBlob(blob);
-
-      await _audioPlayer.play(UrlSource(url));
+     await playSound(sound, _audioPlayer);
 
       // ⏱ Stop after 15 sec
       Timer(const Duration(seconds: 15), () {

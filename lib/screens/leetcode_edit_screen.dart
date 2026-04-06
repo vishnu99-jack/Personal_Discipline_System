@@ -3,7 +3,7 @@ import 'package:hive/hive.dart';
 import 'package:audioplayers/audioplayers.dart';
 import 'dart:typed_data';
 import 'package:file_picker/file_picker.dart';
-import 'dart:html' as html;
+import '../services/audio_helper.dart';
 
 class LeetcodeEditScreen extends StatefulWidget {
   const LeetcodeEditScreen({super.key});
@@ -113,10 +113,9 @@ class _LeetcodeEditScreenState extends State<LeetcodeEditScreen> {
     await _audioPlayer.stop();
 
     if (bytes != null) {
-      final blob = html.Blob([bytes]);
-      final url = html.Url.createObjectUrlFromBlob(blob);
+     await playSound(bytes, _audioPlayer);
 
-      await _audioPlayer.play(UrlSource(url));
+      
     } else if (path != null) {
       await _audioPlayer.play(AssetSource(path));
     }
